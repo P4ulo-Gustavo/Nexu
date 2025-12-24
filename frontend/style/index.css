@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
+
+body{
+    margin:0;
+    padding: 0;
+}
+
+#cabecalho{
+    display:flex;
+    background-color: black;
+    width: 100%;
+    height: 80px;
+}
+
+/* Edições para a logo no navbar da imagem. Ela serve para voltar para o index (via js)*/
+#body_logo{
+    display: flex;
+    background-color: transparent;
+    height: 80px;
+    width: 10%;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor:pointer;
+}
+#logo{
+    height: 150px;
+    width: auto;
+    clip-path: inset(30% 0 35% 0); 
+}
+
+/*layout voltado para a navbar*/
+.navbar{
+    display: flex;
+    width: 100%;
+    align-items: center;
+
+}
+
+.navbar ul{
+    display: inline-flex;
+    list-style: none;
+    margin-left: 30%;
+    color: white;
+    flex-direction: row;
+    justify-content: center;
+    gap:60px;
+}
+.navbar ul li button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor:pointer;
+}
+
+/* Layout do botão de login */
+#butt_login{
+    display: inline-block;
+    position: absolute;
+    right: 40px;
+    padding: 10px 25px 10px 25px;
+    border-radius: 20px;
+    border: 2px solid;
+    border-color: #4D94FF;
+    font-family:"Audiowide", sans-serif;
+    background-color: transparent;
+    color: #4D94FF ;
+    font-size: 15px;
+    cursor: pointer;
+}
