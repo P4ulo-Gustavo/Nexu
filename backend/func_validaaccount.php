@@ -18,7 +18,7 @@ ESTE PADRÃO REGEX FOI GERADO PELO GPT, QUALQUER ERRO, RECLAMA COM ELE KRAY (VÁ
  */
 function validaTelefoneBR($telefone)
 {
-    return preg_match('/^\(?\d{2}\)?\s?9?\d{4}-?\d{4}$/', $telefone);
+    return preg_match('/^\(?\d{2}\)?\s?(?:9\d{4}|\d{4})-?\d{4}$/', $telefone);
 }
 
 /* 
@@ -40,5 +40,48 @@ function sanitizateTelefoneBr(string $telefone, callable $validaTelefoneBR): str
         return $novotel;
     } else {
         throw new InvalidArgumentException("Numero inválido");
+    }
+}
+
+
+function validaCPF(string $cpf): bool
+{
+    // Remove tudo que não for número
+    $cpf = preg_replace('/\D/', '', $cpf);
+
+    // Verifica se tem 11 dígitos
+    if (strlen($cpf) !== 11) {
+        return false;
+    }
+
+    // Bloqueia CPFs com todos os dígitos iguais
+    if (preg_match('/^(\d)\1{10}$/', $cpf)) {
+        return false;
+    }
+
+    // Validação do primeiro dígito verificador
+    for ($t = 9; $t < 11; $t++) {
+        $soma = 0;
+        for ($i = 0; $i < $t; $i++) {
+            $soma += $cpf[$i] * (($t + 1) - $i);
+        }
+
+        $digito = (10 * $soma) % 11;
+        $digito = ($digito == 10) ? 0 : $digito;
+
+        if ($cpf[$t] != $digito) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function validaSexo($sexo): bool
+{
+    if ($sexo == "masculino" || $sexo == "feminino") {
+        return true;
+    } else {
+        return false;
     }
 }
