@@ -15,23 +15,17 @@
 11 3456-7890
 
 ESTE PADRÃO REGEX FOI GERADO PELO GPT, QUALQUER ERRO, RECLAMA COM ELE KRAY (VÁLIDO PARA VOCÊ TAMBÉM GUSTAVO!!SSS)
- */
-function validaTelefoneBR($telefone)
-{
-    return preg_match('/^\(?\d{2}\)?\s?(?:9\d{4}|\d{4})-?\d{4}$/', $telefone);
-}
-
-/* 
 Esta função utiliza a validadora para se o numero estiver certo, retirar os caracteres especiais, se eles existirem no texto
 */
 
-function sanitizateTelefoneBr(string $telefone, callable $validaTelefoneBR): string
-{ //validaTelefoneBR é uma função (callback)
+function validaTel(string $telefone): string
+{
+
     $char_ex = ['(', ')', '-', ' '];
     $caracteres = strlen($telefone);
     $novotel = '';
 
-    if ($validaTelefoneBR($telefone)) {
+    if (preg_match('/^\(?\d{2}\)?\s?(?:9\d{4}|\d{4})-?\d{4}$/', $telefone)) {
         for ($i = 0; $i < $caracteres; $i++) {
             if (!in_array($telefone[$i], $char_ex)) {
                 $novotel .=  $telefone[$i];

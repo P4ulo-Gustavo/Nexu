@@ -53,7 +53,7 @@ class Account
     protected function setTel(string $tel)
     {
         if (!empty($tel)) {
-            $this->tel = sanitizateTelefoneBr($tel, 'validaTelefoneBR');
+            $this->tel = validaTel($tel);
         } else {
             throw new InvalidArgumentException('tel Vazio');
         }
@@ -102,5 +102,11 @@ class Account
         } else {
             throw new InvalidArgumentException('Endereço Vazio');
         }
+    }
+
+    //getters
+
+    public function __getNome():string {
+        return $this->nome;
     }
 }
