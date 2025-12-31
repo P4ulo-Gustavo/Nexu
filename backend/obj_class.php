@@ -147,13 +147,40 @@ class Account
     {
         return $this->sexo;
     }
+    //
     public function getNivelAcesso(): int
     {
         return $this->nivelAcesso;
+    }
+    //
+    public function getSenha(): string
+    {
+        return $this->senha;
     }
 }
 
 class AccountRepository
 {
     private $pdo;
+
+    public function __construct(PDO $pdo)
+    {
+        $this->pdo = $pdo;
+    }
+    public function createAccount(Account $account): void
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO accounts (nome, email, telefone, cpf, sexo, senha, endereco, ativo, nivel_acesso) VALUES (:nome, :email, :telefone, :cpf, :sexo, :senha, :endereco, :ativo, :nivel_acesso)");
+        $stmt->execute([
+            ':nome' => $account->getNome(),
+            ':email' => $account->getEmail(),
+            ':telefone' => $account->getTelefone(),
+            ':cpf' => $account->getCpf(),
+            ':sexo' => $account->getSexo(),
+            ':senha' => $account->getSenha(),
+            ':endereco' => $account->getEndereco(),
+            ':ativo' => $account->getAtivo(),
+            ':nivel_acesso' => $account->getNivelAcesso()
+        ]);
+    }
+    public function updateAccount(Account $account): void {}
 }
