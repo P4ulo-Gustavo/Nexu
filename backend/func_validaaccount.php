@@ -18,7 +18,7 @@ ESTE PADRÃO REGEX FOI GERADO PELO GPT, QUALQUER ERRO, RECLAMA COM ELE KRAY (VÁ
 Esta função utiliza a validadora para se o numero estiver certo, retirar os caracteres especiais, se eles existirem no texto
 */
 
-function validaTel(string $telefone): string
+function validaTel(string $telefone): string | false
 {
 
     $char_ex = ['(', ')', '-', ' '];
@@ -33,12 +33,12 @@ function validaTel(string $telefone): string
         }
         return $novotel;
     } else {
-        throw new InvalidArgumentException("Numero inválido");
+        return false;
     }
 }
 
 
-function validaCPF(string $cpf): bool
+function validaCPF(string $cpf): string | false
 {
     // Remove tudo que não for número
     $cpf = preg_replace('/\D/', '', $cpf);
@@ -68,14 +68,24 @@ function validaCPF(string $cpf): bool
         }
     }
 
-    return true;
+    return $cpf;
 }
 
 function validaSexo($sexo): bool
 {
-    if ($sexo == "masculino" || $sexo == "feminino") {
-        return true;
-    } else {
+    if (!empty($sexo)) {
+        if ($sexo != "masculino" && $sexo != "feminino") {
+            return false;
+        }
+    }
+    if (empty($sexo)) {
         return false;
     }
+
+    return true;
+}
+
+function validaEmail(string $email): bool
+{
+    return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
 }
